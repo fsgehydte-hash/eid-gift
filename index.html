@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة المهندس حسين علاء</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #050505; /* خلفية داكنة لإبراز الشرار */
+            color: white;
+            font-family: sans-serif;
+            overflow: hidden;
+            touch-action: none; /* لتحسين الاستجابة على الآيفون */
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            z-index: 100;
+            pointer-events: none; /* لكي تمر الضغطة من خلف البطاقة */
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 style="font-size: 2.5rem;">🌙 عيد فطر مبارك</h1>
+        <hr style="border: 0.5px solid gold;">
+        <h2 style="color: gold;">المهندس التقني حسين علاء</h2>
+    </div>
+
+    <script>
+        // دالة لإنشاء الشرار (الألعاب النارية)
+        function createFirework(x, y) {
+            const colors = ['#ff0000', '#ffd700', '#ff00ff', '#00ff00', '#00ffff'];
+            
+            for (let i = 0; i < 30; i++) { // إنشاء 30 شظية
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // خصائص الشظية
+                const size = Math.random() * 6 + 2 + 'px';
+                particle.style.width = size;
+                particle.style.height = size;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // الموقع الابتدائي
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                
+                document.body.appendChild(particle);
+                
+                // حركة عشوائية للشرار
+                const destinationX = (Math.random() - 0.5) * 300;
+                const destinationY = (Math.random() - 0.5) * 300;
+                
+                const animation = particle.animate([
+                    { transform: 'translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px)`, opacity: 0 }
+                ], {
+                    duration: 1000 + Math.random() * 1000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                });
+                
+                animation.onfinish = () => particle.remove();
+            }
+        }
+
+        // تشغيل الشرار عند الضغط على الشاشة
+        document.addEventListener('pointerdown', (e) => {
+            createFirework(e.clientX, e.clientY);
+        });
+    </script>
+</body>
+</html>
